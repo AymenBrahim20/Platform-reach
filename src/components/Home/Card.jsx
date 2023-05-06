@@ -1,34 +1,14 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
-import { useDispatch } from 'react-redux';
+
 import { Link } from 'react-router-dom'
-import { addToCart } from '../../redux/CartReducer';
-import { useState } from 'react';
 function Card ({item})  {
-  const dispatch = useDispatch() 
-  const [quantity,setQuantity]=useState(1);
-  const handleAddtoCart = (e) => {
-    e.preventDefault();
-    setQuantity(1);
-    dispatch(addToCart({
-      id: item._id,
-      title:item.name,
-      desc:item.description,
-      price:item.price,
-      quantity,
-      img:"http://localhost:4000/file/art/"+item?.files
-
-
-    }))
-  }
-
-
   return (
-    <div className="col-lg-3 col-md-4 col-sm-6 mix women"  >
-    
+    <div className="col-lg-3 col-md-4 col-sm-6 mix women" >
+    <Link  to={`product/${item._id}`}     >
     <div className="product__item"  >
-      <div className="product__item__pic set-bg"    > <Link  to={`product/${item._id}`}     >
+      <div className="product__item__pic set-bg"    > 
       {item.files?.map((i)=>{
         return (<img  className='card-img'  alt='' src={"http://localhost:4000/file/art/"+ i} />    )
                       

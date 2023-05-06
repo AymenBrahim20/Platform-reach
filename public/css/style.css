@@ -346,18 +346,13 @@ ol {
 	filter: grayscale(50%);
   }
   
-
-.header__logo a {
-	display: inline-block;
-}
-
-.header__menu {
 	width: 1400px;
     padding: 10px 0px;
     justify-content: space-between;
     color: gray;
     font-weight: 300;
 	align-items: center;
+	padding: 30px 0 27px;
 
 }
 
