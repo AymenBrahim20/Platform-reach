@@ -6,7 +6,7 @@ export const login= async(dispatch,user)=>{
     try{
            const res= await LoginService.LoginAuth(user)
            dispatch(loginSuccess(res.data))
-
+              localStorage.setItem("currentUser",JSON.stringify(res.data))
     }
     catch(err){
   dispatch(loginFailure())    

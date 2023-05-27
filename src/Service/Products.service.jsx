@@ -11,9 +11,12 @@ const getAllProducts=() => {
 const updateProduct=(id , data ) => { 
     return http.put(`/product/${id}` , data ) 
 }
-const getAllProductBySubCategory=() => { 
-    return http.get("/product") 
+
+const getProductByCategory=(id , data ) => { 
+    return http.put(`/product/productbycategory/${id}` , data ) 
 }
+
+
 
 
 const getProduct=(id ) => { 
@@ -23,5 +26,5 @@ const deleteProduct=(id ) => {
     return http.delete(`/product/${id}` ) 
 }
 export default { 
-    createProduit , getAllProducts ,updateProduct ,getProduct ,getAllProductBySubCategory, deleteProduct 
+    createProduit , getAllProducts ,updateProduct ,getProduct ,getProductByCategory, deleteProduct 
 }

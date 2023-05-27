@@ -3,8 +3,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
-import Header from '../components/Header'
-import Footer from '../components/Footer'
+
 import ProductList from '../components/Shop/ProductList';
 import CategoryInfo from '../components/Shop/CategoryInfo';
 import ShopSideBar from '../components/Shop/ShopSideBar';

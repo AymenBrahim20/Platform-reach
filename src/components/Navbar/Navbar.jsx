@@ -2,10 +2,10 @@ import React, {useState } from "react";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined"; 
-import { Link } from "react-router-dom";
+import { Link ,useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux"
 import Cart from "../Cart/Cart";
-
+import LoginService from "../../Service/Login.service";
 import "./Navbar.scss";
 
 
@@ -16,13 +16,20 @@ function Navbar() {
 
   const quantity = useSelector((state) => state.cart.products);
 
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
-  // const currentUser = null
 
-  const currentUser = {
-    id: 1,
-    username: "Anna",
-    isSeller: true,
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      localStorage.setItem("currentUser", null);
+
+      navigate("/");
+      localStorage.clear()
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -31,13 +38,13 @@ function Navbar() {
         <div className="logo">
           <Link className="link" to="/">
           <div className="header__logo" >
-            <img src="img/reachlogo1.png"  alt="Logo" id="logo" />
+            <img  src="img/reachlogo1.png"  alt="Logo" id="logo" />
             </div>
           </Link>
         </div>
         <div className="links">
          
-
+        {!currentUser?.user?.roles.includes("seller") && <span>Sell on Reach</span>}
           <span><SearchIcon/></span>
           <span><FavoriteBorderOutlinedIcon/></span>
           <div className='cartIcon' onClick={()=>setOpenCart(!openCart)}     >
@@ -46,19 +53,19 @@ function Navbar() {
             
             </div>
 
-          {!currentUser?.isSeller && <span>Become a Seller</span>}
+          
           {currentUser ? (
             <div className="user" onClick={()=>setOpen(!open)}>
               <img
-                src="https://images.pexels.com/photos/1115697/pexels-photo-1115697.jpeg?auto=compress&cs=tinysrgb&w=1600"
+                src="img/noavatar.jpg"
                 alt=""
               />
-              <span>{currentUser?.username}</span>
+              <span>{currentUser.user.username}</span>
               {open && <div className="options">
-                {currentUser.isSeller && (
+                {currentUser.user.roles.includes("seller") && (
                   <>
                     <Link className="link" to="/myproducts">
-                      Products
+                      My Products
                     </Link>
                     <Link className="link" to="/addP">
                       Add New Product
@@ -71,14 +78,16 @@ function Navbar() {
                 <Link className="link" to="/messages">
                   Messages
                 </Link>
-                <Link className="link" to="/">
+                <Link className="link" onClick={handleLogout}>
                   Logout
                 </Link>
               </div>}
             </div>
           ) : (
             <>
-              <span>Sign in</span>
+            <Link  className="link" to="/login"> 
+            <span> Sign in</span>
+            </Link>
               <Link className="link" to="/register">
                 <button>Join</button>
               </Link>
@@ -91,7 +100,7 @@ function Navbar() {
        
           <hr />
           <div className="header__menu">
-          <ul>
+          <ul >
           <li> <Link className="link menuLink" to="/">
           Jewelry & Accessories            </Link></li>
             <li> <Link className="link menuLink" to="/">
@@ -116,3 +125,6 @@ function Navbar() {
 }
 
 export default Navbar;
+
+
+/* currentUser.user.files || */

@@ -25,6 +25,7 @@
 9.  Contact
 10.  Footer Style
 11. SubCategorySlider
+12.Messages
 -------------------------------------------------------------------*/
 
 /*----------------------------------------*/
@@ -359,7 +360,7 @@ ol {
     font-weight: 300;
 	align-items: center;
 	padding: 30px 0 27px;
-
+	text-align: center;
 }
 
 .header__menu ul li {
@@ -367,6 +368,7 @@ ol {
 	display: inline-block;
 	margin-right: 40px;
 	position: relative;
+      
 }
 
 .header__menu ul li.active a:after {
@@ -1481,7 +1483,56 @@ white-space: nowrap;
     font-size:24px;
     font-weight: 500;
 }
+/*---------------------
+  Messages
+-----------------------*/
+/* .messages{
+	display: flex;
+	justify-content: center;
 
+}
+
+.container-messages {
+    width: 1400px;
+    padding: 50px 0px;
+}
+.title-messages {
+	display: flex;
+	justify-content: space-between;
+}
+
+.title-messages {
+	display: flex;
+	justify-content: space-between;
+}
+
+.table-messages {
+	width: 100%;
+
+}
+
+.active-messages {
+	height: 100px;
+}
+.active-messages  th {
+	text-align: left;
+}
+.active-messages  .td{
+	padding: 10px;;
+	
+}
+
+.active-messages  .td :first-child{
+	font-weight: 500;
+}
+
+
+	  .active-messages .td :nth-child(2),
+	  :nth-child(3) {
+
+		color: gray;
+
+	  } */
 
 /*---------------------
   Shop
@@ -3901,4 +3952,21 @@ padding-right:100px;
 		width: 100%;
 		font-size: 24px;
 	}
+
+	.star {
+		display: flex;
+		align-items: center;
+		gap: 5px;
+	}
+
+	.fa fa-star
+
+	.img-span {
+        height: 1px;
+        width: 1px;
+      }
+	  .star-span {
+       
+        color: #ffc108;
+      }
 }

@@ -2,21 +2,24 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
+import "./Product.scss";
 
 
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined"; 
 import { useState,useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import ProductsService from '../Service/Products.service';
-import { addToCart } from '../redux/CartReducer';
-import RelatedProducts from '../components/Shop/RelatedProducts';
-
+import ProductsService from '../../Service/Products.service';
+import LoginService from '../../Service/Login.service';
+import { addToCart } from '../../redux/CartReducer';
+import RelatedProducts from '../../components/Shop/RelatedProducts';
+import { Reviewws } from '../../components/Reviewws/Reviewws';
 export const Product = () => {
   const dispatch = useDispatch() 
 
   const {id} =useParams()
   const [product,setProduct]=useState()
+  const [user,setUser]=useState()
   
   useEffect(()=>{
     ProductsService.getProduct(id).then((res)=>{
@@ -26,7 +29,7 @@ export const Product = () => {
    },[id])
  
 
-
+   
 
 
   const [selectedImg, setSelectedImg] = useState("");
@@ -208,58 +211,91 @@ export const Product = () => {
         </div>
         <div className="col-lg-12">
           <div className="product__details__tab">
+          <div className='left'>
             <ul className="nav nav-tabs" role="tablist">
               <li className="nav-item">
                 <a className="nav-link active" data-toggle="tab" href="#tabs-1" role="tab">Description</a>
+                <p></p>
               </li>
               <li className="nav-item">
-                <a className="nav-link" data-toggle="tab" href="#tabs-2" role="tab">Specification</a>
+                <a className="nav-link" data-toggle="tab" href="#tabs-2" role="tab">Reviews ( 2 )</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" data-toggle="tab" href="#tabs-3" role="tab">Reviews ( 2 )</a>
+                <a className="nav-link" data-toggle="tab" href="#tabs-3" role="tab">About seller</a>
               </li>
             </ul>
             <div className="tab-content" style={{textAlign:"left"}}>
               <div className="tab-pane active" id="tabs-1" role="tabpanel">
-                <h6>Description</h6>
-                <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed
-                  quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt loret.
-                  Neque porro lorem quisquam est, qui dolorem ipsum quia dolor si. Nemo enim ipsam
-                  voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed quia ipsu
-                  consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Nulla
-                  consequat massa quis enim.</p>
-                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
-                  dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
-                  nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium
-                  quis, sem.</p>
+              <div className='description'>
+                <h2>Description</h2>
+                <p>{product?.longDesc}</p>
+                
+              </div>
               </div>
               <div className="tab-pane" id="tabs-2" role="tabpanel">
-                <h6>Specification</h6>
-                <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed
-                  quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt loret.
-                  Neque porro lorem quisquam est, qui dolorem ipsum quia dolor si. Nemo enim ipsam
-                  voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed quia ipsu
-                  consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Nulla
-                  consequat massa quis enim.</p>
-                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
-                  dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
-                  nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium
-                  quis, sem.</p>
+              <Reviewws productId={id}/>            
+              
               </div>
               <div className="tab-pane" id="tabs-3" role="tabpanel">
-                <h6>Reviews ( 2 )</h6>
-                <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed
-                  quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt loret.
-                  Neque porro lorem quisquam est, qui dolorem ipsum quia dolor si. Nemo enim ipsam
-                  voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed quia ipsu
-                  consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Nulla
-                  consequat massa quis enim.</p>
-                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
-                  dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
-                  nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium
-                  quis, sem.</p>
+              <div className="seller">
+            <h2>Know your Seller</h2>
+            <div className="user">
+              <img
+                src="https://images.pexels.com/photos/720327/pexels-photo-720327.jpeg?auto=compress&cs=tinysrgb&w=1600"
+                alt=""
+              />
+              <div className="info">
+                <span >Anna Bell</span>
+                {!isNaN(product?.totalStars / product?.starNumber) && (
+              <div className="stars">
+              {Array(Math.round(product?.totalStars / product?.starNumber))
+                          .fill().map((item, i) => (
+                          <img src="/img/star.png" alt="" key={i} />
+                          ))}
+                
+                <span> {Math.round(product?.totalStars / product?.starNumber)}</span>
+              </div>
+              )}
+                <button>Contact Me</button>
               </div>
             </div>
+            <div className="box">
+              <div className="items">
+                <div className="item">
+                  <span className="title">From</span>
+                  <span className="desc">USA</span>
+                </div>
+                <div className="item">
+                  <span className="title">Member since</span>
+                  <span className="desc">Aug 2022</span>
+                </div>
+                <div className="item">
+                  <span className="title">Avg. response time</span>
+                  <span className="desc">4 hours</span>
+                </div>
+                <div className="item">
+                  <span className="title">Last delivery</span>
+                  <span className="desc">1 day</span>
+                </div>
+                <div className="item">
+                  <span className="title">Languages</span>
+                  <span className="desc">English</span>
+                </div>
+              </div>
+              <hr />
+              <p>
+                My name is Anna, I enjoy creating AI generated art in my spare
+                time. I have a lot of experience using the AI program and that
+                means I know what to prompt the AI with to get a great and
+                incredibly detailed result.
+              </p>
+            </div>
+          </div>
+                
+             
+              </div>
+            </div>
+          </div>
           </div>
         </div>
       </div>

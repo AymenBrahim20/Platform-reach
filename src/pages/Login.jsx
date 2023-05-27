@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { login } from "../redux/apiCalls";
-import { useNavigate } from "react-router-dom";
+import {  Link, useNavigate } from "react-router-dom";
 import {useSelector,useDispatch} from "react-redux"
+import React from "react";
+
 
 import styled from "styled-components";
 
@@ -62,7 +64,7 @@ const Button = styled.button`
   }
 `;
 
-const Link = styled.a`
+const LinK = styled.a`
   margin: 5px 0px;
   font-size: 12px;
   text-decoration: underline;
@@ -74,13 +76,13 @@ const Login = () => {
      const [username,setUsername] =useState("")
      const [password,setPassword] =useState("")
      const  dispatch=useDispatch()
-     const navigate = useNavigate()
       const{isFetching,error} =useSelector((state)=>state.user)
 
      
             const handleClick = (e) => {
               e.preventDefault();
               login(dispatch, { username, password });
+             
             };
 
   return (
@@ -92,8 +94,8 @@ const Login = () => {
           <Input placeholder="password"  type="password" onChange={(e)=>setPassword(e.target.value)} />
           <Button  onClick={handleClick}    disabled={isFetching}      >LOGIN</Button>
           {error && <Error>Something went wrong...</Error>}
-          <Link>DO NOT YOU REMEMBER THE PASSWORD?</Link>
-          <Link>CREATE A NEW ACCOUNT</Link>
+          <LinK>DO YOU NOT REMEMBER THE PASSWORD?</LinK>
+          <Link className="link" to="/register"><LinK>CREATE A NEW ACCOUNT</LinK></Link>
         </Form>
       </Wrapper>
     </Container>

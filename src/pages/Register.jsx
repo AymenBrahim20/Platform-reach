@@ -1,4 +1,8 @@
 import styled from "styled-components";
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import SignupService from "../Service/Signup.service";
 
 const Container = styled.div`
   width: 100vw;
@@ -57,31 +61,63 @@ const Button = styled.button`
 	
 `;
 
+function Register () {
+
+  const navigate = useNavigate()
+  const [user,setUser]=useState({})
+
+
+  
+const onChangeHandler=(e)=>{
+ 
+  setUser({
+    ...user,
+    [e.target.name]:e.target.value
+  })
+  console.log(user)
+}
+
+const formData = new FormData();
+      const onSubmitHandler=(e)=>{
+      e.preventDefault();
+      formData.append('username', user.username);
+      formData.append('email', user.email);
+      formData.append('password', user.password);
+      
+
+      SignupService.SignupUser(formData).then((res)=>{
+        console.log(res)
+        localStorage.setItem("currentUser",JSON.stringify(res.formData))
+
+        navigate('/')
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
+      }
+         
 
 
 
-
-const Register = () => {
-  return (
-    <Container>
+return(
+  <Container>
       <Wrapper>
         <Title>CREATE AN ACCOUNT</Title>
-        <Form>
-          <Input placeholder="name" />
-          <Input placeholder="last name" />
-          <Input placeholder="username" />
-          <Input placeholder="email" />
-          <Input placeholder="password" />
-          <Input placeholder="confirm password" />
+        <Form  onSubmit={onSubmitHandler}>
+         
+          <Input placeholder="username" name="username"  onChange={onChangeHandler}/>
+          <Input placeholder="email" name="email"  onChange={onChangeHandler} />
+          <Input placeholder="password" name="password"  onChange={onChangeHandler} />
+          <Input placeholder="confirm password" name="password"  onChange={onChangeHandler} />
           <Agreement>
             By creating an account, I consent to the processing of my personal
             data in accordance with the <b>PRIVACY POLICY</b>
           </Agreement>
-          <Button>CREATE</Button>
+          <Button  >CREATE</Button>
         </Form>
       </Wrapper>
     </Container>
-  );
-};
+)
+}
 
-export default Register;
+export default Register

@@ -38,7 +38,6 @@ function Home () {
   </div>
   <Categories/>
 <FeaturedProducts/>
-<SubCatSlider/>
 <Slider/>
 <Trend/>
 <Discount/>
